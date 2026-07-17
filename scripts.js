@@ -1,67 +1,52 @@
-const rock = document.querySelector('#rock');
-const paper = document.querySelector('#paper');
-const scissor = document.querySelector('#scissors');
-const result = document.querySelector('.result')
-const yourScore = document.querySelector('.your-score span');
+const buttons = document.querySelectorAll('.choice');
+const playerScore = document.querySelector('.your-score span');
 const machineScore = document.querySelector('.machine-score span');
+const result = document.querySelector('.result');
 const reset = document.querySelector('.reset');
+const translate = {
+    rock: 'pedra',
+    paper: 'papel',
+    scissor: 'tesoura'
+}
 const choices = ['rock', 'paper', 'scissor'];
-const machineRandomChoice = () => choices[Math.floor(Math.random() * choices.length)];
+const getMachineChoice = () => choices[Math.floor(Math.random() * choices.length)];
 
-rock.addEventListener('click', () => {
-    const machineChoice = machineRandomChoice()
-    switch (machineChoice) {
-        case 'rock':
-            result.placeholder = 'Empate'
-            break;
-        case 'paper':
-            machineScore.textContent++
-            result.placeholder = 'Derrota'
-            break
-        case 'scissor':
-            yourScore.textContent++
-            result.placeholder = 'Vitória'
-            break
+let playerPoints = 0
+let machinePoints = 0
+let message = 'Resultado'
+
+const render = () => {
+    playerScore.textContent = playerPoints
+    machineScore.textContent = machinePoints
+    result.innerHTML = message
+}
+render()
+
+const play = (playerChoice) => {
+    const machineChoice = getMachineChoice()
+    if (playerChoice === machineChoice) {
+        message = `Empate a máquina escolheu ${translate[machineChoice]}!`
+        render()
+    } else if ((playerChoice === 'rock' && machineChoice === 'scissor') ||
+              (playerChoice === 'paper' && machineChoice === 'rock') || 
+              (playerChoice === 'scissor' && machineChoice === 'paper')) {
+        playerPoints++
+        message = `Vitória <br> A máquina escolheu ${translate[machineChoice]}!`
+        render()
+    } else {
+        machinePoints++
+        message = `Derrota <br> A máquina escolheu ${translate[machineChoice]}!`
+        render()
     }
+}
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        play(button.id)
+    })
 })
-
-paper.addEventListener('click', () => {
-    const machineChoice = machineRandomChoice()
-    switch (machineChoice) {
-        case 'rock':
-            yourScore.textContent++
-            result.placeholder = 'Vitória'
-            break
-        case 'paper':
-            result.placeholder = 'Empate'
-            break
-        case 'scissor':
-            machineScore.textContent++
-            result.placeholder = 'Derrota'
-            break
-    }
-
-})
-
-scissor.addEventListener('click', () => {
-    const machineChoice = machineRandomChoice()
-    switch (machineChoice) {
-        case 'rock':
-            machineScore.textContent++
-            result.placeholder = 'Derrota'
-            break
-        case 'paper':
-            yourScore.textContent++
-            result.placeholder = 'Vitória'
-            break
-        case 'scissor':
-            result.placeholder = 'Empate'
-            break
-    }
-})
-
-reset.addEventListener('click', () =>{
-    yourScore.textContent = 0
-    machineScore.textContent = 0
-    result.placeholder = 'Resultado'
+reset.addEventListener('click', () => {
+    playerPoints = 0
+    machinePoints = 0
+    message = Resultado
+    render()
 })

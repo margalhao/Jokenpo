@@ -55,7 +55,7 @@ button:active {
     background-color: green;
 }
 
-#scissors {
+#scissor {
     background-color: blue;
 }
 
@@ -71,13 +71,8 @@ p {
 .machine-score span {
     color: rgb(255, 81, 0);
 }
-
-input {
+.result {
     font-size: 25px;
-    border: none;
-}
-
-input::placeholder {
     color: black;
     text-align: center;
     font-weight: bold;
