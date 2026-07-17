@@ -25,7 +25,7 @@ render()
 const play = (playerChoice) => {
     const machineChoice = getMachineChoice()
     if (playerChoice === machineChoice) {
-        message = `Empate <br> a máquina escolheu ${translate[machineChoice]}!`
+        message = `Empate <br> A máquina escolheu ${translate[machineChoice]}!`
         render()
     } else if ((playerChoice === 'rock' && machineChoice === 'scissor') ||
               (playerChoice === 'paper' && machineChoice === 'rock') || 
