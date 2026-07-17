@@ -47,6 +47,6 @@ buttons.forEach((button) => {
 reset.addEventListener('click', () => {
     playerPoints = 0
     machinePoints = 0
-    message = Resultado
+    message = 'Resultado'
     render()
 })
